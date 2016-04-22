@@ -16,4 +16,6 @@ SECRET_KEY = 'dF65C43128B4d9cB'
 
 SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(basedir, "data", "data.db")
 
-UPLOAD_IMAGE_PATH = os.path.join(basedir, "yile", "static", "images")
+WTF_CSRF_ENABLED = False
+
+WTF_CSRF_SECRET_KEY = SECRET_KEY
