@@ -30,11 +30,11 @@
                     {{ nav_link('pages.contact', 'Contact') }}
                 </ul>
                 <ul class="uk-navbar-nav uk-hidden-small uk-navbar-flip">
-                	{% if session.logged_in %}
-                    <li><a href="/user">My account</a></li>
-                    <li><a href="/user/logout">Log Out</a></li>
+                	{% if current_user.is_authenticated %}
+                    {{ nav_link('admin.index', 'Admin') }}
+                    <li><a href="/user/logout">Log out</a></li>
                     {% else %}
-                    <li><a href="/user/login">Log In</a></li>
+                    {{ nav_link('user.login', 'Log in') }}
                     {% endif %}
                 </ul>
                 <a href="#offcanvas" class="uk-navbar-toggle uk-visible-small" data-uk-offcanvas></a>
@@ -58,10 +58,10 @@
                     {{ nav_link('pages.gallery', 'Gallery') }}
                     {{ nav_link('pages.contact', 'Contact') }}
                     {% if session.logged_in %}
-                    <li><a href="/user">My account</a></li>
+                    {{ nav_link('admin.index', 'Admin') }}
                     <li><a href="/user/logout">Log Out</a></li>
                     {% else %}
-                    <li><a href="/user/login">Log In</a></li>
+                    {{ nav_link('user.login', 'Log in') }}
                     {% endif %}
                 </ul>
             </div>

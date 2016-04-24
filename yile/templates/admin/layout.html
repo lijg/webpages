@@ -1,0 +1,25 @@
+{% from "macros.html" import nav_link with context %}
+
+{% extends "layout.html" %}
+{% block body %}
+<div class="uk-container uk-container-center">
+    <div class="uk-grid" data-uk-grid-margin>
+        <div class="uk-width-medium-1-4 uk-hidden-small uk-panel uk-panel-box">
+            <ul class="uk-nav uk-nav-side" data-uk-nav>
+                <li class="uk-nav-header">用户管理</li>
+                {{ nav_link('user.login', '用户') }}
+                {{ nav_link('user.login', '角色') }}
+
+                <li class="uk-nav-header">内容管理</li>
+                {{ nav_link('user.register', '角色') }}
+                {{ nav_link('user.register', '相册') }}
+            </ul>
+
+        </div>
+        <div class="tm-main uk-width-medium-3-4">
+            {% block admin_content %}
+            {% endblock %}
+        </div>
+    </div>
+</div>
+{% endblock %}

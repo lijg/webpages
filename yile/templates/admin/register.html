@@ -7,21 +7,23 @@
             <a href="" class="uk-alert-close uk-close"></a>
             <p>{{ message }}</p>
         </div>
-        {% endfor %}
-        <form class="uk-panel uk-panel-box uk-form" method="POST" action="/user/login">
+        {% endfor %} 
+        <form class="uk-panel uk-panel-box uk-form" method="POST" action="/user/register">
             {{ form.hidden_tag() }}
             <div class="uk-form-row">
                 {{ form.name(class_="uk-width-1-1 uk-form-large", placeholder="Name") }}
             </div>
             <div class="uk-form-row">
+                {{ form.email(class_="uk-width-1-1 uk-form-large", placeholder="Email") }}
+            </div>
+            <div class="uk-form-row">
                 {{ form.password(class_="uk-width-1-1 uk-form-large", placeholder="Password") }}
             </div>
             <div class="uk-form-row">
-                <input type="submit" class="uk-width-1-1 uk-button uk-button-primary uk-button-large" value="Login">
+                {{ form.password_confirm(class_="uk-width-1-1 uk-form-large", placeholder="Confirm Password") }}
             </div>
-            <div class="uk-form-row uk-text-small">
-                <label class="uk-float-left">{{ form.remember_me }} Remember Me</label>
-                <a class="uk-float-right uk-link uk-link-muted" href='/user/forget'>Forgot Password?</a>
+            <div class="uk-form-row">
+                <input type="submit" class="uk-width-1-1 uk-button uk-button-primary uk-button-large" value="Register">
             </div>
         </form>
     </div>
