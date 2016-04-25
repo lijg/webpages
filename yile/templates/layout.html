@@ -19,6 +19,7 @@
         <script type="text/javascript" src="/static/js/uikit.min.js"></script>
         <script type="text/javascript" src="/static/js/components/slideshow.min.js"></script>
         <script type="text/javascript" src="/static/js/components/slideshow-fx.min.js"></script>
+        <script type="text/javascript" src="/static/js/components/lightbox.min.js"></script>
     </head>
     <body>
         <div class="uk-container uk-container-center uk-margin-top uk-margin-large-bottom">
@@ -57,7 +58,7 @@
                     {{ nav_link('pages.index', 'Home') }}
                     {{ nav_link('pages.gallery', 'Gallery') }}
                     {{ nav_link('pages.contact', 'Contact') }}
-                    {% if session.logged_in %}
+                	{% if current_user.is_authenticated %}
                     {{ nav_link('admin.index', 'Admin') }}
                     <li><a href="/user/logout">Log Out</a></li>
                     {% else %}

@@ -5,19 +5,82 @@ from flask_sqlalchemy import SQLAlchemy
 
 db = SQLAlchemy()
 
+class Category(db.Model):
+    '''
+    分类
+    '''  
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)  
+    name = db.Column(db.String(128), unique=True)
+    description = db.Column(db.String(1024))
+
+    def __init__(self, name, description):
+        self.name = name
+        self.description = description
+
+    def __repr__(self):
+        """
+        Returns name
+        """
+        return '<Category %r>' % self.name
+
+    def save(self):
+        """
+        保存到数据库中
+        """
+        db.session.add(self)
+        db.session.commit()
+
+class Tag(db.Model):
+    '''
+    标签
+    '''
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    name = db.Column(db.String(128), unique=True)
+    description = db.Column(db.String(1024))
+
+    def __init__(self, name, description):
+        self.name = name
+        self.description = description
+
+    def __repr__(self):
+        """
+        Returns name
+        """
+        return '<ImageCategory %r>' % self.name
+
+    def save(self):
+        """
+        保存到数据库中
+        """
+        db.session.add(self)
+        db.session.commit()
+
 class Image(db.Model):
+    '''
+    图片
+    '''
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     index = db.Column(db.Integer)
-    name = db.Column(db.Unicode(64))
-    path = db.Column(db.Unicode(128))
+    path = db.Column(db.String(1024))
+    description = db.Column(db.String(1024))
 
     def __unicode__(self):
         return self.name
 
+    def save(self):
+        """
+        保存到数据库中
+        """
+        db.session.add(self)
+        db.session.commit()
+
 class User(db.Model):
+    '''
+    用户
+    '''
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    name = db.Column(db.String(80), unique=True)
-    email = db.Column(db.String(120), unique=True)
+    name = db.Column(db.String(128), unique=True)
+    email = db.Column(db.String(128), unique=True)
     password = db.Column(db.String(512), unique=True)
     
     def __init__(self, name, email, password):
@@ -32,8 +95,18 @@ class User(db.Model):
         return '<User %r>' % self.name
 
     def verify_password(self, password):
-        return check_password_hash(self.password, password)
-    
+        """
+        校验密码是否正确
+        """
+        return check_password_hash(self.password, password)  
+
+    def save(self):
+        """
+        保存到数据库中
+        """
+        db.session.add(self)
+        db.session.commit()
+
     """
     Flask-Login expects methods.
     """

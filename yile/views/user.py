@@ -5,7 +5,7 @@ from flask import Blueprint, render_template, abort, redirect, request, url_for,
 from jinja2 import TemplateNotFound
 from flask.ext.login import current_user, login_user, logout_user, login_required
 from ..login import login_manager
-from ..forms import LoginForm, RegistrationForm
+from ..forms import LoginForm, RegistrationForm, flash_errors
 from ..models import db, User
 
 bt_user = Blueprint('user', __name__, template_folder='templates')
@@ -54,8 +54,9 @@ def register():
         user = User(name=form.name.data.strip(),
                     email=form.email.data.strip(),
                     password=form.password.data.strip())
-        db.session.add(user)
-        db.session.commit()
+        user.save()
         flash('register successfully, please login')
         return redirect(url_for('user.login'))
+    else:
+        flash_errors(form)
     return render_template('admin/register.html', form=form)
