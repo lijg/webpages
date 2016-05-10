@@ -75,18 +75,33 @@ class Image(db.Model):
     图片
     '''
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    index = db.Column(db.Integer)
     path = db.Column(db.String(1024))
     description = db.Column(db.String(1024))
 
+    # 用于外键的字段
+    category_id = db.Column(db.Integer, db.ForeignKey('category.id'))
+
+    # 外键对象，不会生成数据库实际字段
+    # backref指反向引用，也就是外键Category通过backref(image)查询Image
+    category = db.relationship('Category', backref=db.backref('image', lazy='dynamic'))
+
     def __unicode__(self):
-        return self.name
+        return self.path
+
+    def __init__(self, path, description, category_id):
+        self.path = path
+        self.description = description
+        self.category_id = category_id
 
     def save(self):
         """
         保存到数据库中
         """
         db.session.add(self)
+        db.session.commit()
+
+    def delete(self):
+        db.session.delete(self)
         db.session.commit()
 
 class User(db.Model):

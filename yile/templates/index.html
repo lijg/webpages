@@ -4,40 +4,59 @@
     <div class="uk-width-medium-1-1">
         <div class="uk-slidenav-position" data-uk-slideshow>
             <ul class="uk-slideshow uk-overlay-active">
-                <li>
-                    <img src="/static/images/placeholder_800x400_1.jpg" width="800" height="400" alt="">
-                    <div class="uk-overlay-panel uk-overlay-background uk-overlay-fade uk-flex uk-flex-center uk-flex-middle uk-text-center">
-                        <div>
-                            <h3>Overlay</h3>
-                            <p>Lorem <a href="#">ipsum dolor</a> sit amet, consetetur sadipscing elitr,<br>sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam.</p>
-                            <button class="uk-button uk-button-primary">Button</button>
+                {% if head_images %}
+                {% for image in head_images %}
+                    <li>
+                        <img src="/static/uploads/{{ image.path }}" width="800" height="400" alt="">
+                        <div class="uk-overlay-panel uk-overlay-background uk-overlay-fade uk-flex uk-flex-center uk-flex-middle uk-text-center">
+                            <div>
+                                <p>{{ image.description }}</p>
+                            </div>
+                        </div>
+                    </li>
+                {% endfor %}
+                {% else %}
+                    <li>
+                        <img src="/static/images/placeholder_800x400_1.jpg" width="800" height="400" alt="">
+                        <div class="uk-overlay-panel uk-overlay-background uk-overlay-fade uk-flex uk-flex-center uk-flex-middle uk-text-center">
+                            <div>
+                                <h3>Overlay</h3>
+                                <p>Lorem <a href="#">ipsum dolor</a> sit amet, consetetur sadipscing elitr,<br>sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam.</p>
+                                <button class="uk-button uk-button-primary">Button</button>
+                                <button class="uk-button uk-button-primary">Button</button>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <img src="/static/images/placeholder_800x400_2.jpg" width="800" height="400" alt="">
+                        <div class="uk-overlay-panel uk-overlay-background uk-overlay-left uk-overlay-slide-left uk-width-1-4">
+                            <h3>Overlay Left</h3>
+                            <p>Lorem <a href="#">ipsum dolor</a> sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam.</p>
                             <button class="uk-button uk-button-primary">Button</button>
                         </div>
-                    </div>
-                </li>
-                <li>
-                    <img src="/static/images/placeholder_800x400_2.jpg" width="800" height="400" alt="">
-                    <div class="uk-overlay-panel uk-overlay-background uk-overlay-left uk-overlay-slide-left uk-width-1-4">
-                        <h3>Overlay Left</h3>
-                        <p>Lorem <a href="#">ipsum dolor</a> sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam.</p>
-                        <button class="uk-button uk-button-primary">Button</button>
-                    </div>
-                </li>
-                <li>
-                    <img src="/static/images/placeholder_800x400_3.jpg" width="800" height="400" alt="">
-                    <div class="uk-overlay-panel uk-overlay-background uk-overlay-right uk-overlay-slide-right uk-width-1-4">
-                        <h3>Overlay Right</h3>
-                        <p>Lorem <a href="#">ipsum dolor</a> sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam.</p>
-                        <button class="uk-button uk-button-primary">Button</button>
-                    </div>
-                </li>
+                    </li>
+                    <li>
+                        <img src="/static/images/placeholder_800x400_3.jpg" width="800" height="400" alt="">
+                        <div class="uk-overlay-panel uk-overlay-background uk-overlay-right uk-overlay-slide-right uk-width-1-4">
+                            <h3>Overlay Right</h3>
+                            <p>Lorem <a href="#">ipsum dolor</a> sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam.</p>
+                            <button class="uk-button uk-button-primary">Button</button>
+                        </div>
+                    </li>
+                {% endif %}
             </ul>
             <a href="#" class="uk-slidenav uk-slidenav-contrast uk-slidenav-previous" data-uk-slideshow-item="previous" style="color: rgba(255,255,255,0.4)"></a>
             <a href="#" class="uk-slidenav uk-slidenav-contrast uk-slidenav-next" data-uk-slideshow-item="next" style="color: rgba(255,255,255,0.4)"></a>
             <ul class="uk-dotnav uk-dotnav-contrast uk-position-bottom uk-flex-center">
+            {% if head_images %}
+                {% for image in head_images %}
+                    <li data-uk-slideshow-item="{{ loop.index0 }}"><a href="#">Item {{ loop.index0 }}</a></li>
+                {% endfor %}
+            {% else %}
                 <li data-uk-slideshow-item="0"><a href="#">Item 1</a></li>
                 <li data-uk-slideshow-item="1"><a href="#">Item 2</a></li>
                 <li data-uk-slideshow-item="2"><a href="#">Item 3</a></li>
+            {% endif %}
             </ul>
         </div>
     </div>

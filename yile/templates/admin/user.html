@@ -7,24 +7,6 @@
     <p>{{ message }}</p>
 </div>
 {% endfor %}
-
-<!-- <div>
-    <p><button class="uk-button uk-button-primary" data-uk-toggle="{target:'#add-tag-id'}">ADD</button></p>
-    <div id="add-tag-id" class="uk-hidden uk-panel uk-panel-box">
-        <form class="uk-panel uk-panel-box uk-form" method="POST" action="/admin/tag">
-            {{ form.hidden_tag() }}
-            <div class="uk-form-row">
-                {{ form.name(class_="uk-width-1-1 uk-form-large", placeholder="Name") }}
-            </div>
-            <div class="uk-form-row">
-                {{ form.description(class_="uk-width-1-1 uk-form-large", placeholder="Description") }}
-            </div>
-            <div class="uk-form-row">
-                <input type="submit" class="uk-width-1-1 uk-button uk-button-primary uk-button-large" value="Submit">
-            </div>
-        </form>
-    </div>
-</div> -->
 <div>
     <table class="uk-table uk-table-striped">
         <caption>用户列表</caption>
@@ -41,7 +23,7 @@
             <tr class="uk-table-middle">
                 <td>{{ user.name }}</td>
                 <td>{{ user.email }}</td>
-                <td><a href="/admin/user/del/{{ user.id }}">Delete</a></td>
+                <td><a href="#">Edit</a></td>
             </tr>
         {% endfor %}
         {% else %}

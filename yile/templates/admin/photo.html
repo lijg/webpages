@@ -9,15 +9,18 @@
 {% endfor %}
 
 <div>
-    <p><button class="uk-button uk-button-primary" data-uk-toggle="{target:'#add-tag-id'}">ADD</button></p>
-    <div id="add-tag-id" class="uk-hidden uk-panel uk-panel-box">
-        <form class="uk-panel uk-panel-box uk-form" method="POST" action="/admin/tag">
+    <p><button class="uk-button uk-button-primary" data-uk-toggle="{target:'#add-photo-id'}">ADD</button></p>
+    <div id="add-photo-id" class="uk-hidden uk-panel uk-panel-box">
+        <form class="uk-panel uk-panel-box uk-form" method="POST" action="/admin/photo" enctype="multipart/form-data">
             {{ form.hidden_tag() }}
             <div class="uk-form-row">
-                {{ form.name(class_="uk-width-1-1 uk-form-large", placeholder="Name") }}
+                {{ form.image(class_="uk-width-1-1 uk-form-large", placeholder="Image") }}
             </div>
             <div class="uk-form-row">
                 {{ form.description(class_="uk-width-1-1 uk-form-large", placeholder="Description") }}
+            </div>
+            <div class="uk-form-row">
+                {{ form.category_id(class_="uk-width-1-1 uk-form-large", placeholder="Category") }}
             </div>
             <div class="uk-form-row">
                 <input type="submit" class="uk-width-1-1 uk-button uk-button-primary uk-button-large" value="Submit">
@@ -27,23 +30,23 @@
 </div>
 <div>
     <table class="uk-table uk-table-striped">
-        <caption>分类列表</caption>
+        <caption>图片列表</caption>
         <thead>
             <tr class="uk-table-middle">
-                <th>Name</th>
+                <th>Url</th>
                 <th>Description</th>
                 <th>Category</th>
-                <th>Tags</th>
                 <th>Edit</th>
             </tr>
         </thead>
         <tbody>
-        {% if tags %}
-        {% for tag in tags %}
+        {% if photos %}
+        {% for photo in photos %}
             <tr class="uk-table-middle">
-                <td>{{ tag.name }}</td>
-                <td>{{ tag.description }}</td>
-                <td><a href="/admin/tag/del/{{ tag.id }}">Delete</a></td>
+                <td><img src='/static/uploads/thumbnail/{{ photo.path }}' /></td>
+                <td>{{ photo.description }}</td>
+                <td>{{ photo.category.name }}</td>
+                <td><a href="/admin/photo/del/{{ photo.id }}">Delete</a></td>
             </tr>
         {% endfor %}
         {% else %}

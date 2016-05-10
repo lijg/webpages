@@ -3,13 +3,15 @@
 
 from flask import Blueprint, render_template, abort
 from jinja2 import TemplateNotFound
+from ..models import Image, Category
 
 bt_pages = Blueprint('pages', __name__, template_folder='templates')
 
 @bt_pages.route('/')
 def index():
 	try:
-		return render_template('index.html')
+		category = Category.query.filter_by(name=u'轮播图片').first()
+		return render_template('index.html', head_images=category.image)
 	except TemplateNotFound:
 		abort(404)
 

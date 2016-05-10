@@ -3,7 +3,7 @@
 import imghdr
 from flask import flash
 from flask_wtf import Form
-from wtforms import StringField, TextField, PasswordField, BooleanField, FileField, TextAreaField 
+from wtforms import StringField, TextField, PasswordField, BooleanField, FileField, TextAreaField, SelectField 
 from wtforms.validators import ( ValidationError, StopValidation, 
     InputRequired, Required, Length, Regexp, EqualTo, Email )
 from models import User, Category, Tag
@@ -75,8 +75,13 @@ class ImageUploadForm(Form):
     '''
     image = FileField(u'Image File')
     description  = TextAreaField(u'Image Description')
+    category_id = SelectField(u'Category', coerce=int)
 
     def validate_image(self, field):
         if field.data is None:
             message = self.message or 'An image file is required'
             raise StopValidation(message)
+
+    def validate_category_id(self, field):
+        if not Category.query.filter_by(id=field.data).first():
+            raise ValidationError('Category does not exists.')
