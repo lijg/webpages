@@ -19,3 +19,5 @@ SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(basedir, "data", "data.db"
 WTF_CSRF_ENABLED = False
 
 WTF_CSRF_SECRET_KEY = SECRET_KEY
+
+UPLOAD_FOLDER = os.path.join(basedir, "yile", "static", "uploads")

@@ -1,5 +1,6 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
+
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_sqlalchemy import SQLAlchemy
 
@@ -30,6 +31,13 @@ class Category(db.Model):
         db.session.add(self)
         db.session.commit()
 
+    def delete(self):
+        '''
+        删除数据
+        '''
+        db.session.delete(self)
+        db.session.commit()
+
 class Tag(db.Model):
     '''
     标签
@@ -53,6 +61,13 @@ class Tag(db.Model):
         保存到数据库中
         """
         db.session.add(self)
+        db.session.commit()
+
+    def delete(self):
+        '''
+        删除数据
+        '''
+        db.session.delete(self)
         db.session.commit()
 
 class Image(db.Model):

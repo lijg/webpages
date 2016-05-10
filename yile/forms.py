@@ -6,13 +6,35 @@ from flask_wtf import Form
 from wtforms import StringField, TextField, PasswordField, BooleanField, FileField, TextAreaField 
 from wtforms.validators import ( ValidationError, StopValidation, 
     InputRequired, Required, Length, Regexp, EqualTo, Email )
-from models import User
+from models import User, Category, Tag
 
 def flash_errors(form):
     """Flashes form errors"""
     for field, errors in form.errors.items():
         for error in errors:
             flash(error, 'error')
+
+class CategoryForm(Form):
+    '''
+    增加分类
+    '''
+    name = StringField('Name', validators=[Required(), Length(1,64)])
+    description = TextAreaField(u'Category Description')
+
+    def validate_name(self, field):
+        if Category.query.filter_by(name=field.data.strip()).first():
+            raise ValidationError('Name already in use.')
+
+class TagForm(Form):
+    '''
+    增加分类
+    '''
+    name = StringField('Name', validators=[Required(), Length(1,64)])
+    description = TextAreaField(u'Tag Description')
+
+    def validate_name(self, field):
+        if Tag.query.filter_by(name=field.data.strip()).first():
+            raise ValidationError('Name already in use.')
 
 class LoginForm(Form):
     '''
@@ -40,11 +62,11 @@ class RegistrationForm(Form):
     password_confirm = PasswordField('Confirm password', validators=[Required()])
 
     def validate_name(self, field):
-        if User.query.filter_by(name=field.data).first():
+        if User.query.filter_by(name=field.data.strip()).first():
             raise ValidationError('Name already in use.')
 
     def validate_email(self, field):
-        if User.query.filter_by(email=field.data).first():
+        if User.query.filter_by(email=field.data.strip()).first():
             raise ValidationError('Email already registered.')
 
 class ImageUploadForm(Form):
@@ -55,6 +77,6 @@ class ImageUploadForm(Form):
     description  = TextAreaField(u'Image Description')
 
     def validate_image(self, field):
-        if field.data is None or imghdr.what('unused', field.data.read()) is None:
+        if field.data is None:
             message = self.message or 'An image file is required'
             raise StopValidation(message)

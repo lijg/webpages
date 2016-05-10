@@ -1,4 +1,14 @@
 {% extends "admin/layout.html" %}
 {% block admin_content %}
-ABCD
+
+<img src="/static/uploads/abc.jpg" />
+
+<hr />
+
+<form method="POST" enctype="multipart/form-data">
+    {{ form.image }}
+    {{ form.description }}
+    <input type="submit" class="uk-width-1-1 uk-button uk-button-primary uk-button-large" value="Submit">
+</form>
+
 {% endblock %}

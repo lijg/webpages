@@ -1,0 +1,55 @@
+{% extends "admin/layout.html" %}
+{% block admin_content %}
+
+{% for message in get_flashed_messages() %}
+<div class="uk-alert uk-alert-warning" data-uk-alert>
+    <a href="" class="uk-alert-close uk-close"></a>
+    <p>{{ message }}</p>
+</div>
+{% endfor %}
+
+<div>
+    <p><button class="uk-button uk-button-primary" data-uk-toggle="{target:'#add-category-id'}">ADD</button></p>
+    <div id="add-category-id" class="uk-hidden uk-panel uk-panel-box">
+        <form class="uk-panel uk-panel-box uk-form" method="POST" action="/admin/category">
+            {{ form.hidden_tag() }}
+            <div class="uk-form-row">
+                {{ form.name(class_="uk-width-1-1 uk-form-large", placeholder="Name") }}
+            </div>
+            <div class="uk-form-row">
+                {{ form.description(class_="uk-width-1-1 uk-form-large", placeholder="Description") }}
+            </div>
+            <div class="uk-form-row">
+                <input type="submit" class="uk-width-1-1 uk-button uk-button-primary uk-button-large" value="Submit">
+            </div>
+        </form>
+    </div>
+</div>
+<div>
+    <table class="uk-table uk-table-striped">
+        <caption>分类列表</caption>
+        <thead>
+            <tr class="uk-table-middle">
+                <th>Name</th>
+                <th>Description</th>
+                <th>Edit</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% if categories %}
+        {% for category in categories %}
+            <tr class="uk-table-middle">
+                <td>{{ category.name }}</td>
+                <td>{{ category.description }}</td>
+                <td><a href="/admin/category/del/{{ category.id }}">Delete</a></td>
+            </tr>
+        {% endfor %}
+        {% else %}
+            <tr class="uk-table-middle">
+                <td colspan="3">No Data.</td>
+            </tr>
+        {% endif %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
