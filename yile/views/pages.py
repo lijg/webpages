@@ -11,7 +11,9 @@ bt_pages = Blueprint('pages', __name__, template_folder='templates')
 def index():
 	try:
 		category = Category.query.filter_by(name=u'轮播图片').first()
-		return render_template('index.html', head_images=category.image)
+		if category is not None:
+			return render_template('index.html', head_images=category.image)
+		return render_template('index.html')
 	except TemplateNotFound:
 		abort(404)
 

@@ -44,7 +44,7 @@
         {% for photo in photos %}
             <tr class="uk-table-middle">
                 <td><img src='/static/uploads/thumbnail/{{ photo.path }}' /></td>
-                <td>{{ photo.description }}</td>
+                <td>{{ photo.description | safe }}</td>
                 <td>{{ photo.category.name }}</td>
                 <td><a href="/admin/photo/del/{{ photo.id }}">Delete</a></td>
             </tr>

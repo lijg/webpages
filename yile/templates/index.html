@@ -10,7 +10,7 @@
                         <img src="/static/uploads/{{ image.path }}" width="800" height="400" alt="">
                         <div class="uk-overlay-panel uk-overlay-background uk-overlay-fade uk-flex uk-flex-center uk-flex-middle uk-text-center">
                             <div>
-                                <p>{{ image.description }}</p>
+                                {{ image.description | safe }}
                             </div>
                         </div>
                     </li>
