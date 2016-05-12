@@ -4,8 +4,8 @@
 from werkzeug import secure_filename
 from flask import Blueprint, render_template, abort, flash, redirect, url_for
 from jinja2 import TemplateNotFound
-from ..forms import flash_errors, ImageUploadForm, CategoryForm, TagForm
-from ..models import Category, Tag, User, Image
+from ..forms import flash_errors, ImageUploadForm, CategoryForm, TagForm, RoleForm
+from ..models import Category, Tag, User, Image, Role
 from flask.ext.login import login_required, current_user
 from PIL import Image as PILImage
 
@@ -108,3 +108,25 @@ def del_photo(photo_id):
 @bt_admin.route('/user', methods=('GET', 'POST'))
 def user():
     return render_template('admin/user.html', users=User.query.all())
+
+@bt_admin.route('/role', methods=('GET', 'POST'))
+def role():
+    form = RoleForm()
+    if form.validate_on_submit():
+        role = Role(name = form.name.data.strip(),
+                            description = form.description.data.strip())
+        role.save()
+        flash('add successfully')
+        return redirect(url_for('admin.role'))
+    else:
+        flash_errors(form)
+    return render_template('admin/role.html', form=form,
+        roles=Role.query.all())
+
+@bt_admin.route('/role/del/<int:role_id>')
+def del_role(role_id):
+    role = Role.query.filter_by(id=role_id).first()
+    name = role.name
+    role.delete()
+    flash('role <%s> has been removed' % name)
+    return redirect(url_for('admin.role'))

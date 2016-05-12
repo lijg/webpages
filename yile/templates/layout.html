@@ -33,7 +33,8 @@
                 <ul class="uk-navbar-nav uk-hidden-small uk-navbar-flip">
                 	{% if current_user.is_authenticated %}
                     {{ nav_link('admin.index', 'Admin') }}
-                    <li><a href="/user/logout">Log out</a></li>
+                    {{ nav_link('admin.user', current_user.name) }}
+                    {{ nav_link('user.logout', 'Log out') }}
                     {% else %}
                     {{ nav_link('user.login', 'Log in') }}
                     {% endif %}

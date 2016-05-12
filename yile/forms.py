@@ -6,7 +6,7 @@ from flask_wtf import Form
 from wtforms import StringField, TextField, PasswordField, BooleanField, FileField, TextAreaField, SelectField 
 from wtforms.validators import ( ValidationError, StopValidation, 
     InputRequired, Required, Length, Regexp, EqualTo, Email )
-from models import User, Category, Tag
+from models import User, Category, Tag, Role
 
 def flash_errors(form):
     """Flashes form errors"""
@@ -85,3 +85,14 @@ class ImageUploadForm(Form):
     def validate_category_id(self, field):
         if not Category.query.filter_by(id=field.data).first():
             raise ValidationError('Category does not exists.')
+
+class RoleForm(Form):
+    '''
+    增加角色
+    '''
+    name = StringField('Name', validators=[Required(), Length(1,64)])
+    description = TextAreaField(u'Role Description')
+
+    def validate_name(self, field):
+        if Role.query.filter_by(name=field.data.strip()).first():
+            raise ValidationError('Name already in use.')

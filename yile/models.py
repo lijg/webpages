@@ -165,3 +165,34 @@ class User(db.Model):
         """
         return unicode(self.id)
 
+class Role(db.Model):
+    '''
+    角色
+    '''  
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)  
+    name = db.Column(db.String(128), unique=True)
+    description = db.Column(db.String(1024))
+
+    def __init__(self, name, description):
+        self.name = name
+        self.description = description
+
+    def __repr__(self):
+        """
+        Returns name
+        """
+        return '<Role %r>' % self.name
+
+    def save(self):
+        """
+        保存到数据库中
+        """
+        db.session.add(self)
+        db.session.commit()
+
+    def delete(self):
+        '''
+        删除数据
+        '''
+        db.session.delete(self)
+        db.session.commit()
